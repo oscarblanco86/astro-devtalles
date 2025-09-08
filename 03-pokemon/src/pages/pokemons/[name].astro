@@ -1,0 +1,69 @@
+---
+import type { GetStaticPaths } from "astro";
+import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
+
+import MainLayout from "@layouts/MainLayout.astro";
+import PokemonCards from "@components/pokemons/PokemonCards.astro";
+
+export const getStaticPaths = ( async () => {
+    const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
+    const {results} = await resp.json() as PokemonListResponse;
+
+    return results.map(({name, url}) => ({
+        params: {name},
+        props: {name, url}
+    }))
+    
+    // // console.log('data',data.results)
+    // let list = [] 
+    // for (const pokemon of data.results) {
+    //     const name = pokemon.name;
+    //     const url = pokemon.url;
+    //     list.push({
+    //         params: { name },
+    //         props: { url }
+    //     });
+    // }
+    // // console.log('list',list)
+    // return list;
+}) satisfies GetStaticPaths;
+
+const {name} = Astro.params 
+const {url} = Astro.props
+const id = url.split('/').at(-2)
+const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`
+const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/${id}.png`;
+
+---
+
+<MainLayout 
+    title={`Pokemon - #${id} ${name}`}
+    description=`Informacion sobre el pokemon ${name}`
+    image={imgUrl}
+>
+    <section class="mt-10 mx-10 flex flex-col justify-center items-center">
+        <div>
+            <a 
+                href="/" 
+                class="hover:underline text-blue-500"
+            >Regresar</a>
+        </div>
+        <h1 class="text-5xl capitalize">{name}</h1>
+        <PokemonCards 
+            name={name}
+            url={url}
+            isBig
+        />
+        <audio controls class="mt-5">
+            <source src={audioSrc} type="audio/ogg"/>
+        </audio>
+    </section>
+    
+     
+</MainLayout>
+
+<!-- <style>
+    a {
+        @apply hover: underline text-blue-500;
+    }
+</style> -->
