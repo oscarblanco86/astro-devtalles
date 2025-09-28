@@ -1,6 +1,9 @@
 ---
 import type { GetStaticPaths } from "astro";
 import type { PokemonListResponse } from "@interfaces/pokemon-list.response";
+import Title from '@components/shared/Title.astro'
+import { Icon } from 'astro-icon/components'
+
 
 import MainLayout from "@layouts/MainLayout.astro";
 import PokemonCards from "@components/pokemons/PokemonCards.astro";
@@ -14,18 +17,6 @@ export const getStaticPaths = ( async () => {
         props: {name, url}
     }))
     
-    // // console.log('data',data.results)
-    // let list = [] 
-    // for (const pokemon of data.results) {
-    //     const name = pokemon.name;
-    //     const url = pokemon.url;
-    //     list.push({
-    //         params: { name },
-    //         props: { url }
-    //     });
-    // }
-    // // console.log('list',list)
-    // return list;
 }) satisfies GetStaticPaths;
 
 const {name} = Astro.params 
@@ -42,13 +33,16 @@ const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites
     image={imgUrl}
 >
     <section class="mt-10 mx-10 flex flex-col justify-center items-center">
-        <div>
-            <a 
-                href="/" 
-                class="hover:underline text-blue-500"
-            >Regresar</a>
+        <div class="flex flex-row">
+            <div>
+                <button onclick="history.back()" class="text-blue-500">Regresar</button>
+                <Title >{name}</Title>
+            </div>
+            <button id="btn-favorite" class="ml-4" data-name={name} data-id={id}>
+                <Icon name="heart-outline" size={50}/>
+                <Icon class="hidden" name="heart-full" size={50}/>
+            </button>
         </div>
-        <h1 class="text-5xl capitalize">{name}</h1>
         <PokemonCards 
             name={name}
             url={url}
@@ -62,8 +56,44 @@ const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites
      
 </MainLayout>
 
-<!-- <style>
-    a {
-        @apply hover: underline text-blue-500;
+<script>
+    interface FavoritePokemon {
+        name: string
+        id: number
     }
-</style> -->
+    // document.addEventListener('astro:before-preparation',() => {
+    //     console.log('astro:before-preparation')
+    // })
+    // document.addEventListener('astro:after-preparation',() => {
+    //     console.log('after-preparation')
+    // })
+    // document.addEventListener('astro:before-swap',() => {
+    //     console.log('astro:before-swap')
+    // })
+    // document.addEventListener('astro:after-swap',() => {
+    //     console.log('astro:after-swap')
+    // })
+    // document.addEventListener('astro:page-load',() => {
+    //     console.log('hola')
+    // })
+    const handlePageLoad = () => {
+        const btnFavorite = document.querySelector(
+            '#btn-favorite'
+        ) as HTMLButtonElement
+        if (!btnFavorite) return
+        const name = btnFavorite.dataset.name
+        const id = btnFavorite.dataset.id
+        btnFavorite.addEventListener('click', () => {
+            console.log({name, id})
+        })
+    }
+    document.addEventListener('astro:page-load', handlePageLoad)
+
+</script>
+
+<style>
+    @reference "../../styles/global.css"; 
+    #btn-favorite {
+        @apply hover:animate-pulse;
+    }
+</style>a
