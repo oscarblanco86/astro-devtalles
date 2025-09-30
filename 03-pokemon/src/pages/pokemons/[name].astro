@@ -39,8 +39,8 @@ const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites
                 <Title >{name}</Title>
             </div>
             <button id="btn-favorite" class="ml-4" data-name={name} data-id={id}>
-                <Icon name="heart-outline" size={50}/>
-                <Icon class="hidden" name="heart-full" size={50}/>
+                <Icon data-outline name="heart-outline" size={50}/>
+                <Icon data-full class="hidden" name="heart-full" size={50}/>
             </button>
         </div>
         <PokemonCards 
@@ -58,8 +58,8 @@ const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites
 
 <script>
     interface FavoritePokemon {
+        id: number,
         name: string
-        id: number
     }
     // document.addEventListener('astro:before-preparation',() => {
     //     console.log('astro:before-preparation')
@@ -77,14 +77,56 @@ const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites
     //     console.log('hola')
     // })
     const handlePageLoad = () => {
+        let favoritePokemons: FavoritePokemon[] = JSON.parse(
+            localStorage.getItem('favorites') ?? '[]'
+        )
+
+        console.log('Favorite Pokemons', favoritePokemons)
+        
         const btnFavorite = document.querySelector(
             '#btn-favorite'
         ) as HTMLButtonElement
         if (!btnFavorite) return
-        const name = btnFavorite.dataset.name
-        const id = btnFavorite.dataset.id
+
+        const name = btnFavorite.dataset.name ?? ''
+        const id = btnFavorite.dataset.id ?? ''
+        const isFavorite = favoritePokemons.some((fav) => fav.name == name)
+
+        const heartOutline = btnFavorite.querySelector('[data-outline') as HTMLElement
+        // console.log('outline',heartOutline)
+
+        const heartFull = btnFavorite.querySelector('[data-full') as HTMLElement
+        // console.log('full',heartFull)
+        
+        if (isFavorite) {
+            heartOutline.classList.add('hidden')
+            heartFull.classList.remove('hidden')
+        } else {
+            heartOutline.classList.remove('hidden')
+            heartFull.classList.add('hidden')
+        }
+        
+        const toggleFavorite = () => {
+            const isFavorite = favoritePokemons.some((fav) => fav.name == name)
+            if (isFavorite) {
+                //Remover
+                favoritePokemons = favoritePokemons.filter((fav) => fav.name != name)
+            } else {
+                //Agregar
+                favoritePokemons.push({
+                    id: +id,
+                    name: name
+                })
+                
+            }
+            localStorage.setItem('favorites', JSON.stringify(favoritePokemons))
+        }
+        
         btnFavorite.addEventListener('click', () => {
-            console.log({name, id})
+            // console.log({name, id})
+            heartOutline.classList.toggle('hidden')
+            heartFull.classList.toggle('hidden')
+            toggleFavorite()
         })
     }
     document.addEventListener('astro:page-load', handlePageLoad)
