@@ -2,6 +2,10 @@
 import BlogPost from "../components/BlogPost.astro";
 import { siteConfig } from "../config/site-config";
 import MainLayout from "../layouts/MainLayout.astro";
+
+const posts = await Astro.glob('./posts/*.{md,mdx}')
+// console.log(posts)
+
 ---
 
 <MainLayout title="Oscar Blanco's blog">
@@ -12,14 +16,16 @@ import MainLayout from "../layouts/MainLayout.astro";
 
         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
             
+			{posts.map((post) => <BlogPost {...post}/>)}
+			
+			<!-- <BlogPost />
 			<BlogPost />
 			<BlogPost />
 			<BlogPost />
 			<BlogPost />
 			<BlogPost />
 			<BlogPost />
-			<BlogPost />
-			<BlogPost />
+			<BlogPost /> -->
 
             <!-- <div class="lg:flex">
                 <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="">
