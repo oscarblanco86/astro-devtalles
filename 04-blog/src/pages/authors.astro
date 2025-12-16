@@ -20,7 +20,7 @@ const authors = await getCollection("author");
     <section class="grid grid-cols-1 sm-grid-cols-2 gap-2">
         <a href="/" id="btn-back">Regresar</a>
         <h1>Autores</h1>
-        <section>
+        <section class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {authors.map((author) => <AuthorProfile author={author} />)}
         </section>
     </section>
