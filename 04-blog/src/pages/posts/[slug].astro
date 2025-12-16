@@ -20,7 +20,7 @@ const frontmatter = post.data;
 
 const { Content, headings } = await post.render();
 const author = await getEntry("author", post.data.author.id);
-console.log(frontmatter);
+// console.log(frontmatter);
 ---
 
 <BlogLayout title={frontmatter.title}>
@@ -81,3 +81,4 @@ console.log(frontmatter);
     @apply bg-gray-600 hover:bg-gray-600;
   }
 </style>
+
