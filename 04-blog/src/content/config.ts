@@ -10,7 +10,9 @@ const blogCollection = defineCollection({
 
         author: reference('author'),
 
-        tags: z.array(z.string())
+        tags: z.array(z.string()),
+
+        isDraft: z.boolean().default(false)
 
     })
 })

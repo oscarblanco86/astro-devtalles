@@ -5,7 +5,7 @@ import { siteConfig } from "../config/site-config";
 import MainLayout from "../layouts/MainLayout.astro";
 import TypedBlogPost from "src/components/TypedBlogPost.astro";
 
-const blogPosts = await getCollection('blog')
+const blogPosts = await getCollection('blog', (post) => !post.data.isDraft)
 // console.log("blogpost",blogPosts)
 
 // const posts = await Astro.glob('./posts/*.{md,mdx}')
