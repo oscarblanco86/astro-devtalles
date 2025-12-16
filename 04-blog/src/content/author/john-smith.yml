@@ -1,5 +1,5 @@
 name: John Smith
-avatar: ./avatars/john-smith.webp
+avatar: /avatars/john-smith.webp
 twitter: johnsmith_dev
 linkedIn: https://www.linkedin.com/in/johnsmith-dev
 github: https://github.com/johnsmith

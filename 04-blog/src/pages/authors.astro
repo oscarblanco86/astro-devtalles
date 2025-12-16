@@ -9,17 +9,16 @@ import MainLayout from "src/layouts/MainLayout.astro";
             class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl "
         > -->
         <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-white">
-
             {siteConfig.title}
         </h1>
     </section>
     <section class="grid grid-cols-1 sm-grid-cols-2 gap-2">
         <!-- author card -->
-        <div class="max-w-lg mx-auto my-10 bg-white rounded-lg shadow-md p-5">
+        <div class="max-w-lg mx-auto my-10 bg-white rounded-lg shadow-md p-5 author-card">
             <img
-                class="w-32 h-32 rounded-full mx-auto"
-                src="https://picsum.photos/200"
-                alt="Profile picture"
+            class="w-32 h-32 rounded-full mx-auto"
+            src="https://picsum.photos/200"
+            alt="Profile picture"
             />
             <h2 class="text-center text-2xl font-semibold mt-3">John Doe</h2>
             <p class="text-center text-gray-800 mt-1">Software Engineer</p>
@@ -35,14 +34,12 @@ import MainLayout from "src/layouts/MainLayout.astro";
                 >
             </div>
             <div class="mt-5">
-                <h3 class="text-xl font-semibold">Bio</h3>
-                <!-- <p class="text-gray-600 mt-2"> -->
-                <!-- <p class="text-base leading-relaxed text-gray-600 dark:text-gray-200 mt-2"> -->
-                <!-- <p
-                > -->
-            
-                    <p class="text-lg leading-loose text-gray-700 dark:text-gray-700 mt-2">
+                <h3 class="text-xl font-semibold text-gray-900">Bio</h3>
 
+                <p class="custom-bio">This text will override global styles.</p>
+                <p
+                    class="text-lg leading-loose text-gray-700 dark:text-gray-700 mt-2"
+                >
                     John is a software engineer with over 10 years of experience
                     in developing web and mobile applications. He is skilled in
                     JavaScript, React, and Node.js.
@@ -54,3 +51,9 @@ import MainLayout from "src/layouts/MainLayout.astro";
         </div>
     </section>
 </MainLayout>
+<style>
+    @reference "../styles/global.css";
+    .author-card p, h3 {
+        @apply text-gray-900 dark:text-gray-900 my-2;
+    }
+</style>

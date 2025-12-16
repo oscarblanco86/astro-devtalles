@@ -50,12 +50,12 @@ const author = await getEntry("author", post.data.author.id);
     transition:name={`${post.slug}-image`}
   />
 
-  <h3>Tabla de contenidos</h3>
+  <h3 class="text-xl text-white my-5">Tabla de contenidos</h3>
   <ol>
     {
       headings.map((heading, index) => (
         <li>
-          <a href={`#${heading.slug}`}>
+          <a href={`#${heading.slug}`} class="text-blue-500 hover:underline">
             {index + 1} - {heading.text}
           </a>
         </li>
@@ -70,15 +70,4 @@ const author = await getEntry("author", post.data.author.id);
     <a href="#btn-back">Ir arriba</a>
   </div>
 </BlogLayout>
-
-<style>
-  @reference "../../styles/global.css";
-  p {
-    @apply text-white my-5;
-  }
-
-  .disabled {
-    @apply bg-gray-600 hover:bg-gray-600;
-  }
-</style>
 
