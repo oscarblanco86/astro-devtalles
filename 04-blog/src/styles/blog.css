@@ -1,4 +1,4 @@
-html {
+ html {
   @apply bg-gray-900 px-10;
   scroll-behavior: smooth;
 }
@@ -6,7 +6,7 @@ html {
 body {
   @apply mt-10;
 }
-
+/*
 h1 {
   @apply text-3xl text-white my-5;
 }
@@ -17,12 +17,13 @@ h2 {
 
 h3 {
   @apply text-xl text-white my-5;
-}
+} 
 
-p {
+ p {
   @apply text-white my-5;
-}
+} 
 
 a {
   @apply text-blue-500 hover:underline;
 }
+*/

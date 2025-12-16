@@ -1,26 +1,26 @@
 ---
-import { ClientRouter } from "astro:transitions"
-import "../styles/global.css"
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
 interface Props {
-	title?: string
+	title?: string;
 }
-const {title} = Astro.props
+const { title } = Astro.props;
 ---
-<html lang="en">
-		<head>
-			<meta charset="utf-8" />
-			<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-			<meta name="viewport" content="width=device-width" />
-			<meta name="generator" content={Astro.generator} />
-			<title>{title}</title>
-            <ClientRouter />
 
-		</head>
-		<body class="bg-gray-900">
-			<!-- <h1 class="text-5xl text-amber-300">Astro</h1>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ClientRouter />
+	</head>
+	<body class="bg-gray-900">
+		<!-- <h1 class="text-5xl text-amber-300">Astro</h1>
 			<p class="text-5xl text-amber-300">Astro</p> -->
-            <main class="mb-10 max-w-5xl m-auto px-2">
-                <slot />
-            </main>
-		</body>
-	</html>
+		<main class="mb-10 max-w-5xl m-auto px-2">
+			<slot />
+		</main>
+	</body>
+</html>
